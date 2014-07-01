@@ -8,23 +8,52 @@ httpswww.udacity.comwikics258unit_1
 
 
 
-1. Exceptions
+1. Exception Handling
 
-Methods that throw exceptions need to include the exceptions they throw in their signature.  One benefit is that it shows to people and to the  in a very obvious way the developer dealt with it somehow.
+Methods that throw exceptions are required to include the checked exceptions they throw in their 
+signature.  Java does not require methods to include unchecked exceptions, catching them or in 
+the signature.  Runtime Exceptions can happen anywhere, and frequently.  Coding for them would
+cloud otherwise concise code (worse for other kinds of code), and add a large volume of work, 
+and repetitive code.  It is possible for code to become so error focused it gets slowed, and
+difficult to read. Where the balance begins to tip from careless to burdened depends on the 
+application's environment and the developer(s).  For starters, dealing with the problems
+thoroughly as they arise, including over-handling, allows paring back in judicious and deliberate 
+places.  As a rule, if the exception can allow the application to recover, catch it.
 
-private void riskyMethod() throws AsSpecificAsYouCanFind Exception
+----------------------------------------
+
+private void riskyMethod() throws AsSpecificAsYouCan Exception //see the chart link below for possibilities.
 
 try
-{//any code that may not be able to execute at runtime, theoretically all of which have built in Exceptions, that all need clarification displayed in the //try/catch block
+{//any code that may not be able to execute at runtime, theoretically all of which have built 
+//in Exceptions, that all need clarification displayed in the //try/catch block
 throw new MyException();
 }catch(Exception e){
 System.out.println("Exception" e);
-}catch(MyException e){
+}catch(MyException e)
+//as many exceptions as you can catch can be added here. Specificity is best.
+//this allows you to keep your exception code away from your functioning code.
+{
 System.out.println("MyException 501. This thing didn't work, but we're moving ahead anyway");
 }finally{//what to do in order to proceed
 
+--------------------------------------------
 
-An more human-readable view of the difference between Exceptions and Assertions is the programming language and its parameters (rules) are passive.  You the developer do stuff, and the environment then occasionally (or more often) takes exception.  The developer is the active party, and has been given the capacity to spell out what's OK and what's not by asserting it.   For example, if you put the assertion in the right place, you can determine a null value or other runtime error condition before Java can throw a null pointer exception.  If you can alter the code to avert it, then the assertion has been useful.  If, though, you have to accommodate the possibility of a null value coming from a database, you cope with it using a try/catch/finally block, allowing the exception, identifying it specifically in your error message, and enabling the application to continue. Always include some code that acknowledges the possibility of a checked exception being thrown. If you don't, you will get an error when you try to compile. 
+A more human-readable view of the difference between Exceptions and Assertions 
+is the programming language and its parameters (rules) are passive.  You the 
+developer do stuff, and the environment then occasionally (or more often) takes
+exception.  The developer is the active party, and has been given the capacity 
+to spell out what's OK and what's not by asserting it.   For example, if you put 
+the assertion in the right place, you can determine a null value or other runtime 
+error condition before Java can throw a null pointer exception.  If you can alter 
+the code to avert it, then the assertion has been useful.  If, though, you have to 
+accommodate the possibility of a null value coming from a database, you cope with 
+it using a try/catch/finally block, allowing the exception, identifying it 
+specifically in your error message, and enabling the application to continue. 
+Always include some code that acknowledges the possibility of a checked exception 
+being thrown. If you don't, you will get an error when you try to compile. 
+
+
 
 chart of exceptions: http://www.programcreek.com/2009/02/diagram-for-hierarchy-of-exception-classes/
 http://docs.oracle.com/javase/7/docs/technotes/guides/language/catch-multiple.html
