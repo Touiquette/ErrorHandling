@@ -1,0 +1,84 @@
+janis Froehlig
+for MCTC Java 2
+7/1/2014
+
+Reading
+
+httpswww.udacity.comwikics258unit_1 
+
+
+
+1. Exceptions
+
+Methods that throw exceptions need to include the exceptions they throw in their signature.  One benefit is that it shows to people and to the  in a very obvious way the developer dealt with it somehow.
+
+private void riskyMethod() throws AsSpecificAsYouCanFind Exception
+
+try
+{//any code that may not be able to execute at runtime, theoretically all of which have built in Exceptions, that all need clarification displayed in the //try/catch block
+throw new MyException();
+}catch(Exception e){
+System.out.println("Exception" e);
+}catch(MyException e){
+System.out.println("MyException 501. This thing didn't work, but we're moving ahead anyway");
+}finally{//what to do in order to proceed
+
+
+An more human-readable view of the difference between Exceptions and Assertions is the programming language and its parameters (rules) are passive.  You the developer do stuff, and the environment then occasionally (or more often) takes exception.  The developer is the active party, and has been given the capacity to spell out what's OK and what's not by asserting it.   For example, if you put the assertion in the right place, you can determine a null value or other runtime error condition before Java can throw a null pointer exception.  If you can alter the code to avert it, then the assertion has been useful.  If, though, you have to accommodate the possibility of a null value coming from a database, you cope with it using a try/catch/finally block, allowing the exception, identifying it specifically in your error message, and enabling the application to continue. Always include some code that acknowledges the possibility of a checked exception being thrown. If you don't, you will get an error when you try to compile. 
+
+chart of exceptions: http://www.programcreek.com/2009/02/diagram-for-hierarchy-of-exception-classes/
+http://docs.oracle.com/javase/7/docs/technotes/guides/language/catch-multiple.html
+http://docs.oracle.com/javase/tutorial/essential/exceptions/
+http://docs.oracle.com/javase/7/docs/api/java/lang/package-tree.html
+http://www.freejavaguide.com/java-scjp-part1.pdf
+http://www3.ntu.edu.sg/home/ehchua/programming/java/J5a_ExceptionAssert.html
+Also important: http://rymden.nu/exceptions.html
+
+2. Assertions
+
+A good assertion exists to see if an attribute (field, variable, size, etc.) has an unexpected value because of a coding error influencing the operation of the application (if it doesn't matter, don't do it). Assertions are tests, so they need to be removable without influencing the functioning of the code. They also  (by definition, theoretically) test things that exceptions can't check, like logic, most math (not all, though; for example, divide by zero has an Exception built for it), and in some cases memory use/leaks or other speed versus capacity pitfalls To help identify if it's the code creating the error or something else).  Assertions exist for developers and testers to check the functionality of the code, and nearly always terminate execution.  They are disabled by default at runtime and are intended to identify scenarios of "unforgivable" behavior during testing.  They're useless to validate parameters passed to public methods, since they are checked at that point already .
+
+Other possible uses: check for values that are passed, check to see if a method is being called by writing an impossible assertion in it, Check for pre- and post-conditions
+--------------------------------------------------
+Class SideCRightTriangle;
+
+System.out.println("enter the length of the first side of the right triangle");
+Scanner sc = new Scanner(System.in);
+if (sc.hasNext()){int ia = sc.nextInt();
+
+System.out.println("enter the length of the second side of the triangle");
+if (sc.hasNext()){int ib = sc.nextInt();
+
+long a = ia;
+long b = ib;
+
+long cSq = (a * a) + (b * b)
+
+long c  = Math.sqrt(cSq);
+
+assert c > a;
+
+assert c > b;
+
+//and to avoid an infinite loop
+assert c > 0;
+
+return c;
+--------------------------------------------
+
+There are problems with running assertions consecutively, not the least of which is that if the first fails, there is no way to ascertain if any of the later assertions fail.  In general, it's not a precise practice.
+
+This brief guide groups assertions with flow control statements.  http://www.freejavaguide.com/java-scjp-part1.pdf  In one respect, it takes a bit of the confusion out of a subject that is both fundamental to coding and easy to write, but usually is reserved for the end of language courses.  On the other hand, in simple applications, it's not very practical to direct the flow by stopping it... with pretty-much-indecipherable (at that stage) red text. 
+
+
+enable/disable in Eclipse:  http://stackoverflow.com/questions/11415160/how-to-enable-java-keyword-assert-in-eclipse-in-program-wise
+http://docs.oracle.com/javase/7/docs/technotes/guides/language/assert.html
+http://programmers.stackexchange.com/questions/137158/is-it-better-to-use-assert-or-illegalargumentexception-for-required-method-param
+http://stackoverflow.com/questions/1957645/when-to-use-assertion-vs-exception
+http://junit.sourceforge.net/javadoc/org/junit/Assert.html
+http://www.deitel.com/articles/java_tutorials/20060106/Assertions.html
+http://en.wikipedia.org/wiki/Assertion_(software_development)
+
+
+I really like the approach of teaching error handling to adults really early on in the process.  It almost immediately gives the control to the student developer, largely demystifies how Java works, makes all that red text less intimidating by putting it in the bucket with "the basics," and provides a sense of mastery rather than frustration by making the student's most familiar/comfortable skill creating and using the built-in tools most pointedly directed at and helpful to robust code.
+
